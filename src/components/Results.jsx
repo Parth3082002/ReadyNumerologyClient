@@ -36,22 +36,29 @@ const Results = ({ results, generatePDF }) => {
           </ResultItem>
           <ResultItem>
             <ResultLabel>Description: </ResultLabel>
-            <ResultValue>{crystalInfo.description}</ResultValue>
-          </ResultItem>
-          <ResultItem>
-            <ResultLabel>Recommended Crystals: </ResultLabel>
             <ResultValue>
-              {crystalInfo.crystals.map((crystal, index) => (
-                <span key={crystal}>
-                  {crystal}
-                  {index < crystalInfo.crystals.length - 1 ? ', ' : ''}
-                </span>
+              {crystalInfo.description.map((line, index) => (
+                <div key={index} style={{ marginBottom: '0.5rem' }}>{line}</div>
               ))}
             </ResultValue>
           </ResultItem>
           <ResultItem>
-            <ResultLabel>Benefits: </ResultLabel>
-            <ResultValue>{crystalInfo.benefits}</ResultValue>
+            <ResultLabel>Recommended Crystals and Their Benefits: </ResultLabel>
+            <ResultValue>
+              {crystalInfo.crystals.map((crystal, index) => (
+                <div key={crystal.name} style={{ marginBottom: '0.5rem' }}>
+                  <strong>{crystal.name}</strong> - {crystal.benefit}
+                </div>
+              ))}
+            </ResultValue>
+          </ResultItem>
+          <ResultItem>
+            <ResultLabel>How and When to Use Crystals: </ResultLabel>
+            <ResultValue>
+              {crystalInfo.usage.map((line, index) => (
+                <div key={index} style={{ marginBottom: '0.5rem' }}>{line}</div>
+              ))}
+            </ResultValue>
           </ResultItem>
         </>
       )}

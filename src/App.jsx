@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import jsPDF from 'jspdf'
-import { Container, Header, Logo } from './components/StyledComponents'
+import { Container, Header, Logo, LogoImage } from './components/StyledComponents'
 import InputForm from './components/InputForm'
 import Results from './components/Results'
+import ContactSection from './components/ContactSection'
 import { crystalCombinations } from './data/crystalCombinations'
 
 function App() {
@@ -87,8 +88,8 @@ function App() {
         },
         prefill: {
           name: formData.name,
-          email: "user@example.com",
-          contact: "9000000000",
+          email: formData.email,
+          contact: formData.phone,
         },
         notes: {
           address: "Numerology Inc.",
@@ -273,6 +274,12 @@ function App() {
     const crystalInfo = crystalCombinations[combination]
 
     if (crystalInfo) {
+      // Check if we need a new page
+      if (y > pageHeight - 100) {
+        doc.addPage()
+        y = 20
+      }
+
       // Crystal Recommendations Section
       doc.setFontSize(16)
       doc.setFont('helvetica', 'bold')
@@ -286,34 +293,81 @@ function App() {
       doc.text('• Combination : ', 25, y)
       doc.setFont('helvetica', 'normal')
       doc.text(crystalInfo.combination, 58, y)
-      y += 10
+      y += 15
 
       // Description
       doc.setFont('helvetica', 'bold')
-      doc.text('• Description : ', 25, y)
+      doc.text('• Description :', 25, y)
+      y += 10
       doc.setFont('helvetica', 'normal')
-      doc.text(crystalInfo.description, 55 , y)
+      crystalInfo.description.forEach((line, index) => {
+        // Check if we need a new page
+        if (y > pageHeight - 50) {
+          doc.addPage()
+          y = 20
+        }
+        // Split long lines into multiple lines that fit the page width
+        const maxWidth = pageWidth - 60 // 30px margin on each side
+        const splitLines = doc.splitTextToSize(line, maxWidth)
+        splitLines.forEach((splitLine, splitIndex) => {
+          // Add dash for all sentences, but not for wrapped lines
+          const prefix = splitIndex === 0 ? '  - ' : '    '
+          doc.text(prefix + splitLine, 30, y)
+          y += 10
+        })
+      })
       y += 10
 
-      // Crystals
+      // Crystals and Benefits
+      // Check if we need a new page
+      if (y > pageHeight - 100) {
+        doc.addPage()
+        y = 20
+      }
       doc.setFont('helvetica', 'bold')
-      doc.text('• Recommended Crystals :', 25, y)
+      doc.text('• Recommended Crystals and Their Benefits :', 25, y)
       y += 10
       doc.setFont('helvetica', 'normal')
       crystalInfo.crystals.forEach(crystal => {
-        doc.text('  - ' + crystal, 30, y)
+        // Check if we need a new page
+        if (y > pageHeight - 50) {
+          doc.addPage()
+          y = 20
+        }
+        doc.setFont('helvetica', 'bold')
+        doc.text('  ' + crystal.name + ' - ', 30, y)
+        const textWidth = doc.getStringUnitWidth(crystal.name + ' - ') * doc.internal.getFontSize() / doc.internal.scaleFactor
+        doc.setFont('helvetica', 'normal')
+        doc.text(crystal.benefit, 33 + textWidth, y)
         y += 10
       })
+      y += 10
 
-      // Benefits
+      // Usage Instructions
+      // Check if we need a new page
+      if (y > pageHeight - 100) {
+        doc.addPage()
+        y = 20
+      }
       doc.setFont('helvetica', 'bold')
-      doc.text('• Benefits :', 25, y)
+      doc.text('• How and When to Use Crystals :', 25, y)
       y += 10
       doc.setFont('helvetica', 'normal')
-      const benefits = doc.splitTextToSize(crystalInfo.benefits, pageWidth - 50)
-      benefits.forEach(line => {
-        doc.text('  ' + line, 30, y)
-        y += 10
+      crystalInfo.usage.forEach((line, index) => {
+        // Check if we need a new page
+        if (y > pageHeight - 50) {
+          doc.addPage()
+          y = 20
+        }
+        // Split long lines into multiple lines that fit the page width
+        const maxWidth = pageWidth - 60 // 30px margin on each side
+        const splitLines = doc.splitTextToSize(line, maxWidth)
+        splitLines.forEach((splitLine, splitIndex) => {
+          // Add dash for all sentences, but not for wrapped lines
+          const prefix = splitIndex === 0 ? '  - ' : '    '
+          doc.text(prefix + splitLine, 30, y)
+          y += 10
+        })
       })
     }
 
@@ -321,13 +375,45 @@ function App() {
     y += 10
     doc.setDrawColor(200, 200, 200)
     doc.line(20, y, pageWidth - 20, y)
-    y += 5
+    y += 15
 
     doc.setFontSize(12)
     doc.setFont('helvetica', 'bold')
     const contactText = 'For personal consultant contact us.'
     const contactWidth = doc.getStringUnitWidth(contactText) * doc.internal.getFontSize() / doc.internal.scaleFactor
     doc.text(contactText, (pageWidth - contactWidth) / 2, y)
+    y += 20
+
+    // Add contact details
+    doc.setFontSize(11)
+    doc.setFont('helvetica', 'normal')
+    
+    // Name
+    doc.setFont('helvetica', 'bold')
+    doc.text('Name:', 25, y)
+    doc.setFont('helvetica', 'normal')
+    doc.text('Prajwalkumar Jadhav', 60, y)
+    y += 10
+
+    // Phone
+    doc.setFont('helvetica', 'bold')
+    doc.text('Phone:', 25, y)
+    doc.setFont('helvetica', 'normal')
+    doc.text('+91 9527274541', 60, y)
+    y += 10
+
+    // Email
+    doc.setFont('helvetica', 'bold')
+    doc.text('Email:', 25, y)
+    doc.setFont('helvetica', 'normal')
+    doc.text('contact@numerology.com', 60, y)
+    y += 10
+
+    // Instagram
+    doc.setFont('helvetica', 'bold')
+    doc.text('Instagram:', 25, y)
+    doc.setFont('helvetica', 'normal')
+    doc.text('@prajwalkumarjitendrajadhav', 60, y)
     y += 20
     
     doc.save('numerology-report.pdf')
@@ -336,7 +422,10 @@ function App() {
   return (
     <Container>
       <Header>
-        <Logo>Numerology</Logo>
+        <Logo>
+          <LogoImage src="/logo.png" alt="Numerology Logo" />
+          Numerology
+        </Logo>
       </Header>
       
       <InputForm
@@ -351,6 +440,8 @@ function App() {
         results={results}
         generatePDF={generatePDF}
       />
+
+      <ContactSection />
     </Container>
   )
 }

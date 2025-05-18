@@ -12,6 +12,7 @@ const InputForm = ({ formData, handleChange, handleSubmit, isLoading, paymentSuc
           value={formData.name}
           onChange={handleChange}
           required
+          placeholder="Enter your full name"
         />
       </InputGroup>
       
@@ -24,6 +25,34 @@ const InputForm = ({ formData, handleChange, handleSubmit, isLoading, paymentSuc
           value={formData.birthdate}
           onChange={handleChange}
           required
+        />
+      </InputGroup>
+
+      <InputGroup>
+        <Label htmlFor="email">Email</Label>
+        <Input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          placeholder="Enter your email"
+        />
+      </InputGroup>
+
+      <InputGroup>
+        <Label htmlFor="phone">Phone Number</Label>
+        <Input
+          type="tel"
+          id="phone"
+          name="phone"
+          value={formData.phone}
+          onChange={handleChange}
+          required
+          placeholder="Enter your phone number"
+          pattern="[0-9]{10}"
+          title="Please enter a valid 10-digit phone number"
         />
       </InputGroup>
       

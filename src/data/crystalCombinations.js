@@ -1,21 +1,106 @@
 export const crystalCombinations = {
   '1-1': {
     combination: '1-1',
-    description: 'Double Leadership Energy',
-    crystals: ['Sunstone', 'Citrine', 'Carnelian'],
-    benefits: 'Enhances leadership qualities, boosts confidence, and attracts success'
+    description: [
+      'People with Moolank 1 (Sun) and Bhagyank 1 (Sun) are natural leaders, confident, and ambitious.',
+      'They like to take their own path and have a strong personality.',
+      'Their leadership qualities make them excellent decision-makers and visionaries.',
+      'However, sometimes their ego, stubbornness, and impatience can create obstacles.'
+    ],
+    crystals: [
+      {
+        name: 'Sunstone',
+        benefit: 'Enhances leadership qualities and boosts confidence'
+      },
+      {
+        name: 'Citrine',
+        benefit: 'Brings financial growth and positive energy'
+      },
+      {
+      name: 'Tiger Eye',
+        benefit: '  Improves decision-making and attracts success'
+      },
+      {
+        name: 'Pyrite',
+        benefit: ' Boosts energy and helps in business success'
+      },
+      {
+        name: 'Ruby',
+        benefit: ' Increases vitality and makes you more influential'
+      }
+    ],
+    usage: [
+      'For Success and Fame: Sunstone and Ruby.',
+      'For Courage and Decision-Making: Tiger Eye.',
+      ' For Business and Financial Growth: Citrine and Pyrite.'
+    ]
   },
   '1-2': {
     combination: '1-2',
-    description: 'Balanced Leadership',
-    crystals: ['Rose Quartz', 'Moonstone', 'Lapis Lazuli'],
-    benefits: 'Balances assertiveness with diplomacy, enhances communication'
+    description: [
+      'People with Moolank 1 (Sun) and Bhagyank 2 (Moon) have a combination of strong leadership withemotional intelligence.' ,
+      'They are ambitious but also sensitive, making them great leaders who can understand others.' ,
+      'However, emotional instability and self-doubt can sometimes hinder their progress.'
+    ],
+    crystals: [
+      {
+        name: 'Moonstone',
+        benefit: 'Balances emotions and enhances intuition'
+      },
+      {
+        name: 'Sunstone',
+        benefit: 'Boosts confidence and leadership skills.'
+      },
+      {
+        name: 'Citrine',
+        benefit: 'Attracts prosperity and success'
+      },
+      {
+        name: 'Labradorite',
+        benefit: 'Improves focus and removes negativity'
+      },
+      {
+        name: 'Rose Quartz',
+        benefit: 'Encourages emotional healing and self-love'
+      },
+
+    ],
+    usage: [
+      'For Confidence and Success: Sunstone and Citrine',
+      'For Emotional Balance: Moonstone and Rose Quartz.',
+      'For Mental Clarity and Focus: Labradorite',
+      ]
   },
   '1-3': {
     combination: '1-3',
-    description: 'Creative Leadership',
-    crystals: ['Amethyst', 'Clear Quartz', 'Citrine'],
-    benefits: 'Boosts creativity while maintaining strong leadership'
+    description: [
+      'People with Moolank 1 (Sun) and Bhagyank 3 (Jupiter) have strong leadership and creativity.' ,
+      'They are optimistic and energetic but may struggle with focus.'
+    ],
+    crystals: [
+      {
+        name: 'Citrine',
+        benefit: 'Enhances creativity and confidence'
+      },
+      {
+        name: 'Sunstone',
+        benefit: 'Brings joy and leadership skills'
+      },
+      {
+        name: 'Amethyst',
+        benefit: 'Supports intuition and mental clarity.'
+      },
+      {
+        name: 'Tiger Eye',
+        benefit: 'Boosts motivation and courage'
+      },
+
+    ],
+    usage: [
+      'For Creativity and Confidence: Citrine and Sunstonee',
+      'For Mental Clarity: Amethyst',
+      'For Motivation: Tiger Eye.',
+      ]
   },
   '1-4': {
     combination: '1-4',
@@ -145,7 +230,9 @@ export const crystalCombinations = {
   },
   '3-7': {
     combination: '3-7',
-    description: 'Spiritual Creativity',
+    description: ' People with Moolank 1 (Sun) and Bhagyank 1 (Sun) are natural leaders, confident, and ambitious.' +
+      'They like to take their own path and have a strong personality. However, sometimes their ego,' +
+      'stubbornness, and impatience can create obstacles',
     crystals: ['Citrine', 'Amethyst', 'Selenite'],
     benefits: 'Connects creativity with spirituality'
   },
